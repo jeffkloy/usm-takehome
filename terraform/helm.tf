@@ -18,9 +18,9 @@ resource "helm_release" "argo" {
       server = {
         additionalApplications = [
           {
-            name      = "applications"
+            name      = "argo-${var.argo_project}-applications"
             namespace = "argo"
-            project   = "default"
+            project   = "${var.argo_project}"
             source = {
               repoURL        = "https://github.com/jeffkloy/usm-takehome.git"
               targetRevision = "HEAD"

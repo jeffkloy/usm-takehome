@@ -1,3 +1,8 @@
+variable "argo_project" {
+  default = "default"
+  type    = string
+}
+
 variable "environment" {
   default = "local"
   type    = string
