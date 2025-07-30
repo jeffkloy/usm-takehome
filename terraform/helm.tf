@@ -31,7 +31,7 @@ resource "helm_release" "argo" {
             }
             destination = {
               server    = "https://kubernetes.default.svc"
-              namespace = "default"
+              namespace = "${var.argo_project}"
             }
             syncPolicy = {
               automated = {
@@ -39,7 +39,9 @@ resource "helm_release" "argo" {
                 selfHeal = true
               }
               syncOptions = [
-                "CreateNamespace=true"
+                "CreateNamespace=true",
+                "PrunePropagationPolicy=foreground",
+                "PruneLast=true"
               ]
             }
           }

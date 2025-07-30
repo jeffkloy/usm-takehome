@@ -1,8 +1,8 @@
 replicaCount: 1
 
 image:
-  repository: hello-world
-  tag: "latest"
+  repository: ghcr.io/jeffkloy/usm-takehome/hello-world
+  tag: latest
   pullPolicy: IfNotPresent
 
 service:
