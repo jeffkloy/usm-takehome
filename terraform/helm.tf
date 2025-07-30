@@ -25,7 +25,7 @@ resource "kubernetes_manifest" "argo_applications" {
     apiVersion = "argoproj.io/v1alpha1"
     kind       = "Application"
     metadata = {
-      name      = "applications"
+      name      = "argo-applications"
       namespace = "argo"
     }
     spec = {
@@ -33,9 +33,10 @@ resource "kubernetes_manifest" "argo_applications" {
       source = {
         repoURL        = "https://github.com/jeffkloy/usm-takehome.git"
         targetRevision = "HEAD"
-        path           = "apps"
+        path           = "argo-apps"
         directory = {
-          recurse = true
+          recurse = false
+          include = "*.yaml"
         }
       }
       destination = {
