@@ -15,38 +15,44 @@ resource "helm_release" "argo" {
           pullPolicy = "IfNotPresent"
         }
       }
-      server = {
-        additionalApplications = [
-          {
-            name      = "argo-${var.argo_project}-applications"
-            namespace = "argo"
-            project   = "${var.argo_project}"
-            source = {
-              repoURL        = "https://github.com/jeffkloy/usm-takehome.git"
-              targetRevision = "HEAD"
-              path           = "apps"
-              directory = {
-                recurse = true
-              }
-            }
-            destination = {
-              server    = "https://kubernetes.default.svc"
-              namespace = "${var.argo_project}"
-            }
-            syncPolicy = {
-              automated = {
-                prune    = true
-                selfHeal = true
-              }
-              syncOptions = [
-                "CreateNamespace=true",
-                "PrunePropagationPolicy=foreground",
-                "PruneLast=true"
-              ]
-            }
-          }
-        ]
-      }
     })
   ]
+}
+
+
+resource "kubernetes_manifest" "argo_applications" {
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind       = "Application"
+    metadata = {
+      name      = "applications"
+      namespace = "argo"
+    }
+    spec = {
+      project = "default"
+      source = {
+        repoURL        = "https://github.com/jeffkloy/usm-takehome.git"
+        targetRevision = "HEAD"
+        path           = "apps"
+        directory = {
+          recurse = true
+        }
+      }
+      destination = {
+        server    = "https://kubernetes.default.svc"
+        namespace = "default"
+      }
+      syncPolicy = {
+        automated = {
+          prune    = true
+          selfHeal = true
+        }
+        syncOptions = [
+          "CreateNamespace=true"
+        ]
+      }
+    }
+  }
+
+  depends_on = [helm_release.argo]
 }
