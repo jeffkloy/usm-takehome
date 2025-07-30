@@ -1,6 +1,6 @@
-# Hello, World! Kubernetes GitOps Demo
+# Hello, World!
 
-This repository demonstrates a complete GitOps workflow for deploying applications on AWS EKS using Terraform, Argo CD, and Helm.
+This repository demonstrates a complete GitOps workflow for deploying hello-world on AWS EKS using Terraform, Helm, and Argo CD.
 
 ## 🚀 Overview
 
