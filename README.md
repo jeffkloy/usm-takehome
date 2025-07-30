@@ -4,7 +4,7 @@ This repository contains infrastructure code, application code, and GitOps confi
 
 ## Directory Structure
 
-### `/infra` - Infrastructure as Code
+### `/terraform` - Infrastructure as Code (Terraform)
 
 Contains Terraform configuration for provisioning AWS infrastructure:
 
