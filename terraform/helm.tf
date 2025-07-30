@@ -18,13 +18,13 @@ resource "helm_release" "argo" {
       server = {
         additionalApplications = [
           {
-            name      = "apps"
-            namespace = "default"
+            name      = "applications"
+            namespace = "argo"
             project   = "default"
             source = {
-              repoURL        = "https://github.com/jeffkloy/usm-takehome"
+              repoURL        = "https://github.com/jeffkloy/usm-takehome.git"
               targetRevision = "HEAD"
-              path           = "argo"
+              path           = "apps"
               directory = {
                 recurse = true
               }
