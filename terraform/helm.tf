@@ -33,7 +33,7 @@ resource "kubernetes_manifest" "argo_applications" {
       source = {
         repoURL        = "https://github.com/jeffkloy/usm-takehome.git"
         targetRevision = "HEAD"
-        path           = "argo-apps"
+        path           = "argo"
         directory = {
           recurse = false
           include = "*.yaml"
