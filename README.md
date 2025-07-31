@@ -17,17 +17,10 @@ This take-home project has GitOps principles with Argo as the CD engine, allowin
 
 ## 📁 Directory Structure
 
-### `/.github/workflows` - CI/CD Pipelines
+### `/apps` - Applications and Manifests
 
-Contains GitHub Actions workflow definitions:
-
-- **hello-world.yaml**: GitHub Actions workflow for building and publishing the Docker image
-
-### `/apps` - Application Code
-
-Contains application source code and Kubernetes manifests:
-
-- **hello-world/**: Sample Go web application
+- **hello-world.yaml**: Argo CD Application manifest for GitOps deployment
+- **hello-world/**: Sample Go web application packaged as Helm chart
   - **src/main.go**: Go HTTP server serving "Hello, World!" on port 8080
   - **Dockerfile**: Multi-stage build for minimal container image
   - **Chart.yaml**: Helm chart metadata (version, description)
@@ -36,15 +29,25 @@ Contains application source code and Kubernetes manifests:
     - **deployment.yaml**: Kubernetes Deployment (3 replicas by default)
     - **service.yaml**: ClusterIP Service exposing port 80
 
-### `/argo` - GitOps Configuration
+### `/charts` - Helm Charts
 
-Contains Argo CD application manifests:
+- **argo-applications/**: Helm chart for deploying Argo CD applications
+  - **Chart.yaml**: Chart metadata
+  - **values.yaml**: Configuration values
+  - **templates/application.yaml**: Template for Argo CD Application resources
 
-- **hello-world.yaml**: Argo CD Application resource that defines:
-  - Source repository: `https://github.com/jeffkloy/usm-takehome`
-  - Target namespace: `default`
-  - Sync policies: Automated with prune and self-heal enabled
-  - Helm chart location: `/apps/hello-world`
+### `/terraform` - Infrastructure as Code
+
+- **main.tf**: Main Terraform configuration
+- **providers.tf**: Provider configurations (AWS, Kubernetes, Helm)
+- **variables.tf**: Input variables
+- **data.tf**: Data sources
+- **helm.tf**: Helm releases (Argo CD deployment)
+- **modules/eks/**: EKS cluster module
+  - **main.tf**: EKS cluster and node group resources
+  - **variables.tf**: Module input variables
+  - **outputs.tf**: Module outputs
+  - **data.tf**: Module data sources
 
 ## 🏗️ Infrastructure Components
 
