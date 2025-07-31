@@ -1,0 +1,20 @@
+applications:
+  argo-applications:
+    namespace: argo
+    project: default
+    source:
+      repoURL: https://github.com/jeffkloy/usm-takehome.git
+      targetRevision: HEAD
+      path: apps
+      directory:
+        recurse: false
+        include: "*.yaml"
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: default
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true

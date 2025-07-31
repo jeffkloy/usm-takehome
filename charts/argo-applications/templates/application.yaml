@@ -1,0 +1,38 @@
+{{- range $name, $app := .Values.applications }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $name }}
+  namespace: {{ $app.namespace }}
+spec:
+  project: {{ $app.project }}
+  source:
+    repoURL: {{ $app.source.repoURL }}
+    targetRevision: {{ $app.source.targetRevision }}
+    path: {{ $app.source.path }}
+    {{- if $app.source.directory }}
+    directory:
+      recurse: {{ $app.source.directory.recurse }}
+      {{- if $app.source.directory.include }}
+      include: {{ $app.source.directory.include | quote }}
+      {{- end }}
+    {{- end }}
+  destination:
+    server: {{ $app.destination.server }}
+    namespace: {{ $app.destination.namespace }}
+  {{- if $app.syncPolicy }}
+  syncPolicy:
+    {{- if $app.syncPolicy.automated }}
+    automated:
+      prune: {{ $app.syncPolicy.automated.prune }}
+      selfHeal: {{ $app.syncPolicy.automated.selfHeal }}
+    {{- end }}
+    {{- if $app.syncPolicy.syncOptions }}
+    syncOptions:
+    {{- range $option := $app.syncPolicy.syncOptions }}
+      - {{ $option }}
+    {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}

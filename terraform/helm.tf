@@ -20,40 +20,10 @@ resource "helm_release" "argo" {
 }
 
 
-resource "kubernetes_manifest" "argo_applications" {
-  manifest = {
-    apiVersion = "argoproj.io/v1alpha1"
-    kind       = "Application"
-    metadata = {
-      name      = "argo-applications"
-      namespace = "argo"
-    }
-    spec = {
-      project = "default"
-      source = {
-        repoURL        = "https://github.com/jeffkloy/usm-takehome.git"
-        targetRevision = "HEAD"
-        path           = "argo"
-        directory = {
-          recurse = false
-          include = "*.yaml"
-        }
-      }
-      destination = {
-        server    = "https://kubernetes.default.svc"
-        namespace = "default"
-      }
-      syncPolicy = {
-        automated = {
-          prune    = true
-          selfHeal = true
-        }
-        syncOptions = [
-          "CreateNamespace=true"
-        ]
-      }
-    }
-  }
+resource "helm_release" "argo_applications" {
+  name      = "argo-applications"
+  chart     = "../charts/argo-applications"
+  namespace = "argo"
 
   depends_on = [helm_release.argo]
 }
