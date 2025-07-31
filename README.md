@@ -1,4 +1,4 @@
-# Hello, World!
+# Hello, world! (USM take-home assessment)
 
 This repository demonstrates a complete GitOps workflow for deploying hello-world on AWS EKS using Terraform, Helm, and Argo CD.
 
@@ -12,31 +12,11 @@ This project sets up:
 
 ## 📁 Directory Structure
 
-### `/terraform` - Infrastructure as Code
+### `/.github/workflows` - CI/CD Pipelines
 
-Contains Terraform configuration for provisioning AWS infrastructure:
+Contains GitHub Actions workflow definitions:
 
-- **main.tf**: Root module orchestrating the infrastructure deployment
-- **providers.tf**: AWS and Helm provider configuration
-- **variables.tf**: Input variables for customizing the deployment
-- **data.tf**: Data sources for fetching AWS resource information
-- **helm.tf**: Deploys Argo CD via Helm with pre-configured application
-- **modules/**:
-  - **eks/**: EKS cluster module
-    - **main.tf**: EKS cluster and node group configuration
-    - **variables.tf**: Module input variables
-    - **outputs.tf**: Exported values (cluster endpoint, ID, OIDC issuer)
-    - **data.tf**: Module-specific data sources
-
-### `/argo` - GitOps Configuration
-
-Contains Argo CD application manifests:
-
-- **hello-world.yaml**: Argo CD Application resource that defines:
-  - Source repository: `https://github.com/jeffkloy/usm-takehome`
-  - Target namespace: `default`
-  - Sync policies: Automated with prune and self-heal enabled
-  - Helm chart location: `/apps/hello-world`
+- **hello-world.yaml**: GitHub Actions workflow for building and publishing the Docker image
 
 ### `/apps` - Application Code
 
@@ -50,6 +30,16 @@ Contains application source code and Kubernetes manifests:
   - **templates/**:
     - **deployment.yaml**: Kubernetes Deployment (3 replicas by default)
     - **service.yaml**: ClusterIP Service exposing port 80
+
+### `/argo` - GitOps Configuration
+
+Contains Argo CD application manifests:
+
+- **hello-world.yaml**: Argo CD Application resource that defines:
+  - Source repository: `https://github.com/jeffkloy/usm-takehome`
+  - Target namespace: `default`
+  - Sync policies: Automated with prune and self-heal enabled
+  - Helm chart location: `/apps/hello-world`
 
 ## 🏗️ Infrastructure Components
 
