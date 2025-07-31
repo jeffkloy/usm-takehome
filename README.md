@@ -1,6 +1,6 @@
 # Hello, world! (USM take-home assessment)
 
-This repository demonstrates a complete GitOps workflow for deploying hello-world on AWS EKS using Terraform, Helm, and Argo CD.
+This repository demos a complete GitOps workflow for deploying `hello-world` (sample app) on AWS EKS using Terraform, Helm, and Argo CD.
 
 ## 🚀 Overview and Explanation
 
@@ -10,9 +10,9 @@ This project sets up:
 - Argo CD for GitOps-based continuous deployment; pipeline with self-healing capabilities
 - No actual deployment is done in this repo due to having no attached infrastructure
 - Tested using LocalStack
-- Most of README.md was written using AI (Claude)
+- Most of README.md was written using AI (Claude), apart from overview & explainers
 
-Why this approach was taken:
+Why this approach was taken:  
 This take-home project has GitOps principles with Argo as the CD engine, allowing us to have a pull-based deployment model that maintains a git repo as the single "source of truth" whilst allowing there to be self-healing capabilities. The choice of AWS EKS eliminates Kubernetes control plane management overhead, while Terraform modules from CloudPosse provide tested & repeatable infrastructure patterns. Helm packaging enables templated & versioned app deployments across environments, and GitHub Actions builds & pushes to GHCR, to provide a secure integrated CI pipeline that triggers only on changes to specific files & directories.
 
 ## 📁 Directory Structure
